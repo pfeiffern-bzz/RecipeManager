@@ -5,6 +5,9 @@ def filter_recipes(recipes, min_prep_time=None, max_prep_time=None):
     return list(filter(lambda r: (min_prep_time is None or r.prep_time >= min_prep_time) and
                                   (max_prep_time is None or r.prep_time <= max_prep_time), recipes))
 
+def uppercase_recipe_names(recipes):
+    return list(map(lambda r: {**r.__dict__, 'name': r.name.upper()}, recipes))
+
 def sort_recipes(recipes):
     return sorted(recipes, key=lambda r: r.prep_time)
 

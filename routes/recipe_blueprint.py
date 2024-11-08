@@ -1,7 +1,7 @@
 
 from flask import Blueprint, jsonify, request
 from models.recipe import Recipe
-from utils.algorithm_utils import filter_recipes, sort_recipes, aggregate_ingredients
+from utils.algorithm_utils import filter_recipes, sort_recipes, aggregate_ingredients, uppercase_recipe_names
 
 recipe_blueprint = Blueprint('recipe_blueprint', __name__)
 
@@ -34,3 +34,8 @@ def filter_recipe_by_time():
     max_time = int(request.args.get('max_time', 30))
     filtered_recipes = filter_recipes(recipes, min_time, max_time)
     return jsonify([recipe.__dict__ for recipe in filtered_recipes])
+
+@recipe_blueprint.route('/uppercase_names', methods=['GET'])
+def get_uppercase_recipe_names():
+    uppercase_names = uppercase_recipe_names(recipes)
+    return jsonify(uppercase_names)
